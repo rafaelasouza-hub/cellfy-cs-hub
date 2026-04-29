@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Central CS · Cellfy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0f0f;
+      --surface: #161616;
+      --surface-hover: #1e1e1e;
+      --border: rgba(255,255,255,0.07);
+      --border-hover: rgba(255,255,255,0.14);
+      --text: #f0f0ee;
+      --text-muted: #888;
+      --text-faint: #444;
+      --accent-green: #a3e635;
+      --accent-green-dim: rgba(163,230,53,0.1);
+      --accent-purple: #a78bfa;
+      --accent-purple-dim: rgba(167,139,250,0.1);
+      --font: 'DM Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+    }
+
+    html { background: var(--bg); }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    /* subtle grid bg */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* header */
+    .header {
+      margin-bottom: 3rem;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .eyebrow span {
+      color: var(--accent-green);
+      opacity: 0.8;
+    }
+
+    h1 {
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--text);
+    }
+
+    h1 strong {
+      font-weight: 500;
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* section label */
+    .section-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 12px;
+      padding-left: 2px;
+    }
+
+    /* grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 10px;
+      margin-bottom: 3rem;
+    }
+
+    /* cards */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .card:hover {
+      background: var(--surface-hover);
+      border-color: var(--border-hover);
+    }
+
+    .card:active { transform: scale(0.98); }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .icon-claude { background: var(--accent-purple-dim); }
+    .icon-sheets { background: rgba(163,230,53,0.08); }
+
+    .badge {
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 99px;
+      border: 1px solid;
+    }
+
+    .badge-claude {
+      color: var(--accent-purple);
+      border-color: rgba(167,139,250,0.25);
+    }
+
+    .badge-sheets {
+      color: var(--accent-green);
+      border-color: rgba(163,230,53,0.2);
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .card-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-faint);
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .card-footer span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* staggered animation */
+    .card:nth-child(1) { animation-delay: 0.05s; }
+    .card:nth-child(2) { animation-delay: 0.10s; }
+    .card:nth-child(3) { animation-delay: 0.15s; }
+    .card:nth-child(4) { animation-delay: 0.20s; }
+    .card:nth-child(5) { animation-delay: 0.25s; }
+
+    /* footer */
+    .page-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-faint);
+      animation: fadeUp 0.4s 0.3s ease both;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      opacity: 0.6;
+      display: inline-block;
+      margin-right: 6px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    @media (max-width: 480px) {
+      .page { padding: 2.5rem 1.25rem 4rem; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <header class="header">
+      <p class="eyebrow"><span>//</span> cellfy · customer ops</p>
+      <h1><strong>Central</strong> de Ferramentas CS</h1>
+      <p class="subtitle">Acesso rápido a todas as ferramentas da equipe</p>
+    </header>
+
+    <p class="section-label">ferramentas · 5</p>
+
+    <div class="grid">
+
+      <a class="card" href="https://claude.ai/artifacts/2c2cbaf5-760d-4b03-92f1-4724bc0dec83" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-icon icon-claude">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <rect x="2" y="2" width="5" height="5" rx="1" fill="#a78bfa"/>
+              <rect x="9" y="2" width="5" height="5" rx="1" fill="#a78bfa" opacity=".5"/>
+              <rect x="2" y="9" width="5" height="5" rx="1" fill="#a78bfa" opacity=".5"/>
+              <rect x="9" y="9" width="5" height="5" rx="1" fill="#a78bfa" opacity=".25"/>
+            </svg>
+          </div>
+          <span class="badge badge-claude">Claude</span>
+        </div>
+        <div>
+          <p class="card-title">Audit CS</p>
+          <p class="card-desc">Avaliação de qualidade dos atendimentos com score, alertas e CSAT</p>
+        </div>
+        <div class="card-footer">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 8.5L8.5 1.5M8.5 1.5H3.5M8.5 1.5V6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>claude.ai/artifacts/2c2cbaf5</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1-kb1GahLlMmRVA1kFxjdmxKJHCANNWbxJd-vsPJqaTY/edit?gid=265519025#gid=265519025" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-icon icon-sheets">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <rect x="2" y="2" width="12" height="12" rx="2" fill="#a3e635" opacity=".15"/>
+              <path d="M2 5.5h12M5.5 5.5v8.5M2 9h12M2 12.5h12" stroke="#a3e635" stroke-width="1" opacity=".8"/>
+            </svg>
+          </div>
+          <span class="badge badge-sheets">Sheets</span>
+        </div>
+        <div>
+          <p class="card-title">Input Diário CS</p>
+          <p class="card-desc">Registro diário de atendimentos e ocorrências da equipe</p>
+        </div>
+        <div class="card-footer">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 8.5L8.5 1.5M8.5 1.5H3.5M8.5 1.5V6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>INPUT_DIARIO_CS_Cellfy_OFC</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1PkvORc15os2Rbb3UPb45G2K75EX0UIVX1Qzsa-kffQc/edit?gid=1402994313#gid=1402994313" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-icon icon-sheets">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <rect x="2" y="2" width="12" height="12" rx="2" fill="#a3e635" opacity=".15"/>
+              <path d="M2 5.5h12M5.5 5.5v8.5M2 9h12M2 12.5h12" stroke="#a3e635" stroke-width="1" opacity=".8"/>
+            </svg>
+          </div>
+          <span class="badge badge-sheets">Sheets</span>
+        </div>
+        <div>
+          <p class="card-title">CS V3</p>
+          <p class="card-desc">Base principal de dados e operações do CS Cellfy</p>
+        </div>
+        <div class="card-footer">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 8.5L8.5 1.5M8.5 1.5H3.5M8.5 1.5V6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Cellfy_CS_v3</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://docs.google.com/spreadsheets/d/14A4IYG2DEDqp1Jk4AK06cqxLVchSc8USUR1E94Mz9Yg/edit?gid=1715835985#gid=1715835985" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-icon icon-sheets">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <rect x="2" y="2" width="12" height="12" rx="2" fill="#a3e635" opacity=".15"/>
+              <path d="M2 5.5h12M5.5 5.5v8.5M2 9h12M2 12.5h12" stroke="#a3e635" stroke-width="1" opacity=".8"/>
+            </svg>
+          </div>
+          <span class="badge badge-sheets">Sheets</span>
+        </div>
+        <div>
+          <p class="card-title">SAC Backoffice</p>
+          <p class="card-desc">Controle back-office de demandas e processos internos</p>
+        </div>
+        <div class="card-footer">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 8.5L8.5 1.5M8.5 1.5H3.5M8.5 1.5V6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>SAC Back-office Cellfy</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://claude.ai/artifacts/latest/748c4012-553a-4ed7-a4e4-bd019501c5dc" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-icon icon-claude">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="8" r="5.5" fill="#a78bfa" opacity=".15"/>
+              <circle cx="8" cy="8" r="2.5" fill="#a78bfa"/>
+              <path d="M8 2.5V1M8 15v-1.5M2.5 8H1M15 8h-1.5M4.4 4.4L3.3 3.3M12.7 12.7l-1.1-1.1M12.7 4.4l-1.1 1.1M4.4 11.6l-1.1 1.1" stroke="#a78bfa" stroke-width="1.1" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="badge badge-claude">Claude</span>
+        </div>
+        <div>
+          <p class="card-title">Assist CS</p>
+          <p class="card-desc">Assistente inteligente para suporte e triagem de atendimentos</p>
+        </div>
+        <div class="card-footer">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 8.5L8.5 1.5M8.5 1.5H3.5M8.5 1.5V6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>claude.ai/artifacts/748c4012</span>
+        </div>
+      </a>
+
+    </div>
+
+    <footer class="page-footer">
+      <div><span class="dot"></span>cellfy · customer ops hub</div>
+      <div id="date"></div>
+    </footer>
+
+  </div>
+
+  <script>
+    const d = new Date();
+    document.getElementById('date').textContent = d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
+  </script>
+</body>
+</html>
