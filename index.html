@@ -6,225 +6,232 @@
   <title>Central CS · Cellfy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:            #080b14;
-      --bg2:           #0d1120;
-      --surface:       #111827;
-      --surface-hover: #161e30;
-      --border:        rgba(139,120,255,0.10);
-      --border-hover:  rgba(139,120,255,0.22);
-      --text:          #e8e6f4;
-      --text-muted:    #7a7a99;
-      --text-faint:    #3a3a55;
-      --purple:        #9f7aea;
-      --purple-light:  #c4b5fd;
-      --purple-dim:    rgba(159,122,234,0.12);
-      --blue:          #60a5fa;
-      --blue-dim:      rgba(96,165,250,0.10);
-      --indigo:        #818cf8;
-      --glow-purple:   rgba(139,92,246,0.18);
-      --font: 'DM Sans', sans-serif;
-      --mono: 'DM Mono', monospace;
-      --radius: 14px;
-      --radius-sm: 8px;
+      --navy:       #0a0e1a;
+      --navy-2:     #0d1220;
+      --navy-3:     #111828;
+      --navy-4:     #161f32;
+      --border:     rgba(0,212,255,0.10);
+      --border-2:   rgba(0,212,255,0.20);
+      --cyan:       #00d4ff;
+      --cyan-dim:   rgba(0,212,255,0.08);
+      --cyan-glow:  rgba(0,212,255,0.15);
+      --text:       #e8edf5;
+      --text-muted: #6b7a99;
+      --text-faint: #2e3a52;
+      --font: 'Inter', sans-serif;
+      --mono: 'JetBrains Mono', monospace;
     }
 
-    html { background: var(--bg); }
-
-    body {
-      font-family: var(--font);
-      background: var(--bg);
+    html, body {
+      background: var(--navy);
       color: var(--text);
+      font-family: var(--font);
       min-height: 100vh;
     }
 
-    .orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(90px);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .orb-1 {
-      width: 500px; height: 500px;
-      top: -160px; left: -120px;
-      background: radial-gradient(circle, rgba(99,60,220,0.20) 0%, transparent 70%);
-    }
-    .orb-2 {
-      width: 400px; height: 400px;
-      bottom: -60px; right: -80px;
-      background: radial-gradient(circle, rgba(37,99,235,0.14) 0%, transparent 70%);
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: radial-gradient(rgba(139,120,255,0.08) 1px, transparent 1px);
-      background-size: 28px 28px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .page {
-      position: relative;
-      z-index: 1;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 4rem 2rem 6rem;
-    }
-
-    .header {
-      margin-bottom: 3.5rem;
-      animation: fadeUp 0.5s ease both;
-    }
-
-    .eyebrow {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-faint);
-      margin-bottom: 16px;
+    /* ── NAVBAR ── */
+    nav {
+      background: var(--navy-2);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 52px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-    .eyebrow::before {
-      content: '';
-      display: inline-block;
-      width: 20px; height: 1px;
-      background: linear-gradient(90deg, var(--purple), transparent);
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 28px; height: 28px;
+      background: var(--cyan);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon svg { display: block; }
+
+    .logo-text {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-divider {
+      width: 1px;
+      height: 18px;
+      background: var(--border-2);
+    }
+
+    .nav-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── PAGE ── */
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 6rem;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      margin-bottom: 3rem;
+    }
+
+    .header-mono {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--cyan);
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+      opacity: 0.8;
     }
 
     h1 {
-      font-size: clamp(28px, 4vw, 40px);
-      font-weight: 300;
-      letter-spacing: -0.03em;
+      font-size: clamp(26px, 4vw, 38px);
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.025em;
       line-height: 1.1;
-      background: linear-gradient(135deg, #e8e6f4 30%, var(--purple-light) 70%, var(--blue) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      margin-bottom: 10px;
     }
-    h1 strong { font-weight: 500; }
 
     .subtitle {
-      margin-top: 10px;
-      font-size: 14px;
+      font-family: var(--mono);
+      font-size: 13px;
       color: var(--text-muted);
-      font-weight: 300;
+      font-weight: 400;
     }
 
-    .section-divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 0 0 14px;
-      animation: fadeUp 0.4s 0.1s ease both;
+    .subtitle::before {
+      content: '// ';
+      color: var(--cyan);
+      opacity: 0.6;
     }
-    .section-divider span {
+
+    /* ── SECTION LABEL ── */
+    .section-label {
       font-family: var(--mono);
       font-size: 10px;
+      font-weight: 500;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--text-faint);
-      white-space: nowrap;
-    }
-    .section-divider::after {
-      content: '';
-      flex: 1; height: 1px;
-      background: linear-gradient(90deg, var(--border), transparent);
+      color: var(--cyan);
+      margin-bottom: 14px;
+      opacity: 0.7;
     }
 
+    /* ── GRID ── */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 10px;
       margin-bottom: 3rem;
     }
 
+    /* ── CARDS ── */
     .card {
-      background: var(--surface);
+      background: var(--navy-3);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.25rem 1.25rem 1rem;
+      border-radius: 10px;
+      padding: 1.25rem;
       text-decoration: none;
       color: inherit;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      transition: background 0.2s, border-color 0.2s, transform 0.1s, box-shadow 0.2s;
-      animation: fadeUp 0.5s ease both;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
       position: relative;
       overflow: hidden;
     }
-    .card::before {
+
+    .card::after {
       content: '';
       position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, var(--glow-purple), transparent 60%);
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
       opacity: 0;
       transition: opacity 0.2s;
     }
-    .card:hover {
-      background: var(--surface-hover);
-      border-color: var(--border-hover);
-      box-shadow: 0 0 0 1px var(--border-hover), 0 8px 32px rgba(99,60,220,0.12);
-    }
-    .card:hover::before { opacity: 1; }
-    .card:active { transform: scale(0.98); }
 
-    .card:nth-child(1) { animation-delay: 0.07s; }
-    .card:nth-child(2) { animation-delay: 0.12s; }
-    .card:nth-child(3) { animation-delay: 0.17s; }
-    .card:nth-child(4) { animation-delay: 0.22s; }
-    .card:nth-child(5) { animation-delay: 0.27s; }
-    .card:nth-child(6) { animation-delay: 0.32s; }
+    .card:hover {
+      border-color: var(--border-2);
+      background: var(--navy-4);
+      box-shadow: 0 0 24px var(--cyan-glow), 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .card:hover::after { opacity: 0.6; }
+    .card:active { transform: scale(0.985); }
 
     .card-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      position: relative;
     }
 
     .card-icon {
       width: 36px; height: 36px;
-      border-radius: var(--radius-sm);
+      border-radius: 8px;
+      background: var(--cyan-dim);
+      border: 1px solid var(--border-2);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
     }
-    .icon-claude { background: var(--purple-dim); border: 1px solid rgba(159,122,234,0.18); }
-    .icon-sheets { background: var(--blue-dim);   border: 1px solid rgba(96,165,250,0.15); }
-    .icon-form   { background: rgba(129,140,248,0.10); border: 1px solid rgba(129,140,248,0.18); }
 
     .badge {
       font-family: var(--mono);
       font-size: 9px;
       font-weight: 500;
-      letter-spacing: 0.07em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       padding: 3px 9px;
-      border-radius: 99px;
+      border-radius: 4px;
       border: 1px solid;
+      color: var(--cyan);
+      border-color: rgba(0,212,255,0.25);
+      background: rgba(0,212,255,0.06);
     }
-    .badge-claude { color: var(--purple-light); border-color: rgba(196,181,253,0.2); background: rgba(159,122,234,0.08); }
-    .badge-sheets { color: var(--blue);         border-color: rgba(96,165,250,0.2);  background: rgba(96,165,250,0.06); }
-    .badge-form   { color: var(--indigo);       border-color: rgba(129,140,248,0.2); background: rgba(129,140,248,0.06); }
+
+    .badge-sheets {
+      color: #4ade80;
+      border-color: rgba(74,222,128,0.25);
+      background: rgba(74,222,128,0.06);
+    }
+
+    .badge-form {
+      color: #a78bfa;
+      border-color: rgba(167,139,250,0.25);
+      background: rgba(167,139,250,0.06);
+    }
 
     .card-title {
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--text);
       letter-spacing: -0.01em;
-      position: relative;
     }
 
     .card-desc {
@@ -232,28 +239,29 @@
       color: var(--text-muted);
       line-height: 1.6;
       flex: 1;
-      font-weight: 300;
-      position: relative;
     }
 
     .card-footer {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       font-family: var(--mono);
       font-size: 10px;
       color: var(--text-faint);
       padding-top: 10px;
       border-top: 1px solid var(--border);
       overflow: hidden;
-      position: relative;
     }
+
+    .card:hover .card-footer { color: var(--text-muted); }
+
     .card-footer span {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
+    /* ── FOOTER ── */
     .page-footer {
       display: flex;
       align-items: center;
@@ -263,60 +271,67 @@
       font-family: var(--mono);
       font-size: 10px;
       color: var(--text-faint);
-      animation: fadeUp 0.4s 0.38s ease both;
     }
-    .status { display: flex; align-items: center; gap: 7px; }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     .dot {
       width: 6px; height: 6px;
       border-radius: 50%;
-      background: var(--purple);
+      background: var(--cyan);
+      box-shadow: 0 0 6px var(--cyan);
       animation: pulse 2.5s infinite;
-      box-shadow: 0 0 6px var(--purple);
     }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
     @keyframes pulse {
-      0%, 100% { opacity: 0.5; }
-      50%       { opacity: 1; }
+      0%, 100% { opacity: 0.5; box-shadow: 0 0 4px var(--cyan); }
+      50%       { opacity: 1;   box-shadow: 0 0 10px var(--cyan); }
     }
 
     @media (max-width: 500px) {
-      .page { padding: 2.5rem 1.25rem 4rem; }
+      .page { padding: 2rem 1.25rem 4rem; }
       .grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
+  <nav>
+    <a class="nav-logo" href="#">
+      <img src="data:image/png;base64,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" alt="Cellfy" style="height:26px;display:block;" />
+    </a>
+    <div class="nav-divider"></div>
+    <span class="nav-label">central de ferramentas cs</span>
+  </nav>
 
   <div class="page">
 
-    <header class="header">
-      <p class="eyebrow">cellfy · customer ops</p>
-      <h1><strong>Central</strong> de Ferramentas CS</h1>
-      <p class="subtitle">Acesso rápido a todas as ferramentas criadas</p>
-    </header>
+    <div class="header">
+      <p class="header-mono">customer ops · hub</p>
+      <h1>Central de Ferramentas CS</h1>
+      <p class="subtitle">acesso rápido a todas as ferramentas criadas</p>
+    </div>
 
-    <div class="section-divider"><span>ferramentas · 6</span></div>
+    <p class="section-label">ferramentas · 7</p>
 
     <div class="grid">
 
+      <!-- Audit CS -->
       <a class="card" href="https://claude.ai/artifacts/2c2cbaf5-760d-4b03-92f1-4724bc0dec83" target="_blank" rel="noopener">
         <div class="card-top">
-          <div class="card-icon icon-claude">
+          <div class="card-icon">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <rect x="2" y="2" width="5" height="5" rx="1" fill="#c4b5fd"/>
-              <rect x="9" y="2" width="5" height="5" rx="1" fill="#c4b5fd" opacity=".5"/>
-              <rect x="2" y="9" width="5" height="5" rx="1" fill="#c4b5fd" opacity=".5"/>
-              <rect x="9" y="9" width="5" height="5" rx="1" fill="#c4b5fd" opacity=".25"/>
+              <rect x="2" y="2" width="5" height="5" rx="1" fill="#00d4ff"/>
+              <rect x="9" y="2" width="5" height="5" rx="1" fill="#00d4ff" opacity=".5"/>
+              <rect x="2" y="9" width="5" height="5" rx="1" fill="#00d4ff" opacity=".5"/>
+              <rect x="9" y="9" width="5" height="5" rx="1" fill="#00d4ff" opacity=".25"/>
             </svg>
           </div>
-          <span class="badge badge-claude">Claude</span>
+          <span class="badge">Claude</span>
         </div>
         <p class="card-title">Audit CS</p>
         <p class="card-desc">Avaliação de qualidade dos atendimentos com score, alertas e CSAT</p>
@@ -326,16 +341,17 @@
         </div>
       </a>
 
+      <!-- Assist CS -->
       <a class="card" href="https://claude.ai/artifacts/latest/748c4012-553a-4ed7-a4e4-bd019501c5dc" target="_blank" rel="noopener">
         <div class="card-top">
-          <div class="card-icon icon-claude">
+          <div class="card-icon">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="8" r="5.5" fill="#c4b5fd" opacity=".15"/>
-              <circle cx="8" cy="8" r="2.5" fill="#c4b5fd"/>
-              <path d="M8 2.5V1M8 15v-1.5M2.5 8H1M15 8h-1.5" stroke="#c4b5fd" stroke-width="1.1" stroke-linecap="round"/>
+              <circle cx="8" cy="8" r="5" fill="#00d4ff" opacity=".15"/>
+              <circle cx="8" cy="8" r="2.5" fill="#00d4ff"/>
+              <path d="M8 2.5V1M8 15v-1.5M2.5 8H1M15 8h-1.5" stroke="#00d4ff" stroke-width="1.1" stroke-linecap="round"/>
             </svg>
           </div>
-          <span class="badge badge-claude">Claude</span>
+          <span class="badge">Claude</span>
         </div>
         <p class="card-title">Assist CS</p>
         <p class="card-desc">Assistente inteligente para suporte e triagem de atendimentos</p>
@@ -345,12 +361,13 @@
         </div>
       </a>
 
+      <!-- Input Diário -->
       <a class="card" href="https://docs.google.com/spreadsheets/d/1-kb1GahLlMmRVA1kFxjdmxKJHCANNWbxJd-vsPJqaTY/edit?gid=265519025#gid=265519025" target="_blank" rel="noopener">
         <div class="card-top">
-          <div class="card-icon icon-sheets">
+          <div class="card-icon">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <rect x="2" y="2" width="12" height="12" rx="2" fill="#60a5fa" opacity=".12"/>
-              <path d="M2 5.5h12M5.5 5.5v8.5M2 9h12M2 12.5h12" stroke="#60a5fa" stroke-width="1" opacity=".9"/>
+              <rect x="2" y="2" width="12" height="12" rx="2" fill="#4ade80" opacity=".12"/>
+              <path d="M2 5.5h12M5.5 5.5v8.5M2 9h12M2 12.5h12" stroke="#4ade80" stroke-width="1" opacity=".9"/>
             </svg>
           </div>
           <span class="badge badge-sheets">Sheets</span>
@@ -363,12 +380,13 @@
         </div>
       </a>
 
+      <!-- CS V3 -->
       <a class="card" href="https://docs.google.com/spreadsheets/d/1PkvORc15os2Rbb3UPb45G2K75EX0UIVX1Qzsa-kffQc/edit?gid=1402994313#gid=1402994313" target="_blank" rel="noopener">
         <div class="card-top">
-          <div class="card-icon icon-sheets">
+          <div class="card-icon">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <rect x="2" y="2" width="12" height="12" rx="2" fill="#60a5fa" opacity=".12"/>
-              <path d="M2 5.5h12M5.5 5.5v8.5M2 9h12M2 12.5h12" stroke="#60a5fa" stroke-width="1" opacity=".9"/>
+              <rect x="2" y="2" width="12" height="12" rx="2" fill="#4ade80" opacity=".12"/>
+              <path d="M2 5.5h12M5.5 5.5v8.5M2 9h12M2 12.5h12" stroke="#4ade80" stroke-width="1" opacity=".9"/>
             </svg>
           </div>
           <span class="badge badge-sheets">Sheets</span>
@@ -381,12 +399,13 @@
         </div>
       </a>
 
+      <!-- SAC Backoffice Formulário -->
       <a class="card" href="https://rafaelasouza-hub.github.io/sac-backoffice/" target="_blank" rel="noopener">
         <div class="card-top">
-          <div class="card-icon icon-form">
+          <div class="card-icon">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <rect x="2" y="2" width="12" height="12" rx="2" fill="#818cf8" opacity=".12"/>
-              <path d="M5 5.5h6M5 8h6M5 10.5h3" stroke="#818cf8" stroke-width="1.2" stroke-linecap="round"/>
+              <rect x="2" y="2" width="12" height="12" rx="2" fill="#a78bfa" opacity=".12"/>
+              <path d="M5 5.5h6M5 8h6M5 10.5h3" stroke="#a78bfa" stroke-width="1.2" stroke-linecap="round"/>
             </svg>
           </div>
           <span class="badge badge-form">Formulário</span>
@@ -399,12 +418,13 @@
         </div>
       </a>
 
+      <!-- SAC Backoffice Base -->
       <a class="card" href="https://docs.google.com/spreadsheets/d/14A4IYG2DEDqp1Jk4AK06cqxLVchSc8USUR1E94Mz9Yg/edit?gid=1715835985#gid=1715835985" target="_blank" rel="noopener">
         <div class="card-top">
-          <div class="card-icon icon-sheets">
+          <div class="card-icon">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <rect x="2" y="2" width="12" height="12" rx="2" fill="#60a5fa" opacity=".12"/>
-              <path d="M2 5.5h12M5.5 5.5v8.5M2 9h12M2 12.5h12" stroke="#60a5fa" stroke-width="1" opacity=".9"/>
+              <rect x="2" y="2" width="12" height="12" rx="2" fill="#4ade80" opacity=".12"/>
+              <path d="M2 5.5h12M5.5 5.5v8.5M2 9h12M2 12.5h12" stroke="#4ade80" stroke-width="1" opacity=".9"/>
             </svg>
           </div>
           <span class="badge badge-sheets">Sheets</span>
@@ -417,12 +437,31 @@
         </div>
       </a>
 
+      <!-- Cellfy Treinamentos -->
+      <a class="card" href="https://rafaelasouza-hub.github.io/cellfy-treinamentos/gestor.html" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M8 2L2 5.5v5L8 14l6-3.5v-5L8 2z" stroke="#00d4ff" stroke-width="1.1" stroke-linejoin="round"/>
+              <path d="M8 8.5V12M8 8.5L5.5 7M8 8.5L10.5 7" stroke="#00d4ff" stroke-width="1" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="badge">Gestor</span>
+        </div>
+        <p class="card-title">Cellfy Treinamentos</p>
+        <p class="card-desc">Portal de treinamentos e capacitação da equipe — visão gestor</p>
+        <div class="card-footer">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 8.5L8.5 1.5M8.5 1.5H3.5M8.5 1.5V6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>rafaelasouza-hub.github.io/cellfy-treinamentos</span>
+        </div>
+      </a>
+
     </div>
 
     <footer class="page-footer">
       <div class="status">
         <span class="dot"></span>
-        <span>cellfy · customer ops · 6 ferramentas</span>
+        <span>cellfy · customer ops · 7 ferramentas</span>
       </div>
       <div id="date"></div>
     </footer>
